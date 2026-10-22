@@ -1,0 +1,66 @@
+<%-- Shared top of every page. The page sets  pageTitle  and  activeNav  before including this file. --%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="cartCount" value="${empty sessionScope.cart ? 0 : sessionScope.cart.count}" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= pageTitle %> | Foodie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="${ctx}/css/style.css">
+  <script>
+    /* apply the saved theme before the page paints, so there is no light/dark flash */
+    try { var t = localStorage.getItem('foodie-theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body data-ctx="${ctx}" data-logged-in="${not empty sessionScope.user}" data-flash="<c:out value='${sessionScope.flash}'/>">
+<c:remove var="flash" scope="session" />
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="${ctx}/home" aria-label="Foodie home"><span class="brand-mark">F</span>Foodie</a>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="${ctx}/home" class="<%= "home".equals(activeNav) ? "active" : "" %>">Home</a>
+      <a href="${ctx}/menu" class="<%= "menu".equals(activeNav) ? "active" : "" %>">Menu</a>
+      <a href="${ctx}/home#offers">Offers</a>
+      <c:if test="${not empty sessionScope.user}"><a href="${ctx}/orders" class="<%= "orders".equals(activeNav) ? "active" : "" %>">My orders</a></c:if>
+      <c:if test="${sessionScope.user.admin}"><a href="${ctx}/admin/dashboard" class="<%= activeNav.startsWith("admin") ? "active" : "" %>">Admin</a></c:if>
+    </nav>
+
+    <div class="nav-search">
+      <input id="nav-search" type="search" placeholder="Search dishes" autocomplete="off" aria-label="Search dishes" aria-controls="suggest">
+      <ul id="suggest" class="suggest" hidden></ul>
+    </div>
+
+    <div class="topbar-actions">
+      <a class="icon-btn" href="${ctx}/menu?fav=1" title="Favorites" aria-label="Favorites">&#9829;</a>
+      <button class="icon-btn" id="theme-toggle" type="button" title="Switch dark / light" aria-label="Switch dark or light theme">&#9680;</button>
+      <a class="cart-btn" id="cart-btn" href="${ctx}/cart" aria-label="Cart">
+        <span aria-hidden="true">&#128722;</span> Cart <span class="badge" id="cart-badge">${cartCount}</span>
+      </a>
+      <c:choose>
+        <c:when test="${not empty sessionScope.user}">
+          <details class="user-menu">
+            <summary><c:out value="${sessionScope.user.firstName}"/></summary>
+            <div class="user-pop">
+              <a href="${ctx}/profile">Profile</a>
+              <a href="${ctx}/orders">My orders</a>
+              <form method="post" action="${ctx}/logout"><button type="submit">Log out</button></form>
+            </div>
+          </details>
+        </c:when>
+        <c:otherwise>
+          <a class="btn btn-sm btn-ghost" href="${ctx}/login">Log in</a>
+          <a class="btn btn-sm hide-sm" href="${ctx}/register">Sign up</a>
+        </c:otherwise>
+      </c:choose>
+    </div>
+  </div>
+</header>
+
+<main id="main" data-page="<%= activeNav %>">

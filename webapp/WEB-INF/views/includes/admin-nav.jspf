@@ -1,0 +1,6 @@
+<nav class="admin-nav wrap" aria-label="Admin">
+  <a href="${ctx}/admin/dashboard" class="<%= "admin-dashboard".equals(activeNav) ? "active" : "" %>">Dashboard</a>
+  <a href="${ctx}/admin/orders" class="<%= "admin-orders".equals(activeNav) ? "active" : "" %>">Orders</a>
+  <a href="${ctx}/admin/foods" class="<%= "admin-foods".equals(activeNav) ? "active" : "" %>">Menu items</a>
+  <a href="${ctx}/admin/ads" class="<%= "admin-ads".equals(activeNav) ? "active" : "" %>">Banners</a>
+</nav>

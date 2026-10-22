@@ -1,0 +1,17 @@
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div>
+      <a class="brand" href="${ctx}/home"><span class="brand-mark">F</span>Foodie</a>
+      <p class="muted">A learning project built with Java Servlets, JSP, JDBC and MySQL.</p>
+    </div>
+    <p class="muted">Payments here are for demo only. No real money is taken.</p>
+  </div>
+</footer>
+
+<div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+<div id="modal-root"></div>
+<script src="${ctx}/js/app.js"></script>
+</body>
+</html>
