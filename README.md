@@ -16,4 +16,4 @@ A full-stack food ordering web application built with **Java Servlets, JSP, JDBC
 1. **Create the Database:** 
    Run `sql/foodie.sql` in MySQL Workbench or via terminal:
    ```bash
-   mysql -u root -p < sql/foodie.sql
+   mysql -u (your username) -p < sql/foodie.sql
